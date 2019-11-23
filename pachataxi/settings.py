@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',  
+    'apps.authentication',  
     'apps.taxi',
 ]
 
@@ -124,5 +125,5 @@ STATICFILES_DIRS = (BASE_DIR, '/static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# LOGIN_URL = '/login'
-# LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_URL = '/login'
+LOGOUT_REDIRECT_URL = '/login/'

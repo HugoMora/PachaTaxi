@@ -2,15 +2,37 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+
+class Rol(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200, blank=False, null=False)
+    fecha_creacion = models.DateField('Fecha Creación', auto_now=True, auto_now_add=False)
+
+    class Meta:
+        verbose_name = 'Rol'
+        verbose_name_plural = 'Roles'
+        ordering = ['nombre']
+
+    def __str__(self):
+        return self.nombre
+
+class Usuario(models.Model):
+    user     = models.OneToOneField(User, on_delete=models.CASCADE)
+    rol      = models.ManyToManyField(Rol)
+    alias    = models.CharField(max_length=50)
+
+    # def __str__(self):
+    #     return self.User.first_name
+
 class Vehiculo(models.Model):
     id = models.AutoField(primary_key=True)
     modelo = models.CharField(max_length=200, blank=False, null=False)        
     marca = models.CharField(max_length=200, blank=False, null=False)        
     color = models.CharField(max_length=200, blank=False, null=False)        
-    fecha_creacion = models.DateField('Fecha Creación', auto_now=True, auto_now_add=False)
     imagen= models.ImageField(upload_to='pictures', max_length=255, null=True, blank=True)
     Id_usuario = models.OneToOneField(User,on_delete=models.CASCADE)
-
+    fecha_creacion = models.DateField('Fecha Creación', auto_now=True, auto_now_add=False)
+    
     class Meta:
         verbose_name = 'Vehiculo'
         verbose_name_plural = 'Vehiculos'
@@ -18,20 +40,6 @@ class Vehiculo(models.Model):
 
     def __str__(self):
         return self.modelo
-
-class Modulo(models.Model):
-    id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=200, blank=False, null=False)
-    id_usuario= models.ManyToManyField(User)
-    fecha_creacion = models.DateField('Fecha Creación', auto_now=True, auto_now_add=False)
-
-    class Meta:
-        verbose_name = 'Modulo'
-        verbose_name_plural = 'Modulos'
-        ordering = ['nombre']
-
-    def __str__(self):
-        return self.nombre
 
 class Viaje(models.Model):
     id = models.AutoField(primary_key=True)
@@ -50,7 +58,7 @@ class Viaje(models.Model):
         ordering = ['fecha']
 
     def __str__(self):
-        return self.fecha
+        return str(self.estado)
 
 
 
