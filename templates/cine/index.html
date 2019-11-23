@@ -1,0 +1,61 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Películas
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>PELÍCULAS</h1>
+    </div>
+ 
+    <div class="row">
+        {% for pelicula in peliculas %}
+        <!-- Movie Card Start -->
+        <div class="card-view">
+            <div class="card-header" style="background: url('{{ pelicula.imagen.url }}'); background-size: cover;">
+                <div class="card-header-icon">
+                    <a href="{{ pelicula.trailer }} " target="_blank" style="margin-top: auto; margin-left: 33%;">
+                        <i class="material-icons header-icon">
+                            <img src="/media/pictures/icons/play.png" height="100" width="100"/>
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-movie-content">
+                <div class="card-movie-content-head">
+                    <a href="#">
+                        <h3 class="card-movie-title">{{ pelicula.titulo }}</h3>
+                    </a>
+                    <!--<div class="ratings"><span>7.8</span>/10</div>-->
+                </div>
+                <div class="card-movie-info">
+                    <div class="movie-running-time">
+                        <label>Director</label>
+                        <span>{{ pelicula.directores_id }}</span>
+                    </div>
+                    <div class="movie-running-time">
+                        <label>Duración</label>
+                        <span>{{ pelicula.duracion }} min</span>
+                    </div>
+                    <div class="movie-running-time">
+                        <label>Idiomas</label>
+                        <span>
+                            {% for idioma in pelicula.idioma_id.all %}
+                                {{ idioma }} <br>
+                            {% endfor %}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-movie-content-head" style="margin-left: 12%;">
+                    <a href="{% url 'cine:listar_localpelicula' pelicula.id %}" class="btn btn-success">Comprar
+                    </a>
+                    <a href="#" class="btn btn-warning">Ver Detalle
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Movie Card End -->
+        {% endfor %}
+    </div>
+{% endblock %}

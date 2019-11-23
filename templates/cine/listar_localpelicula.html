@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Locales por Película
+{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-left: 33%;">
+        {% for pelicula in peliculas %}
+        <!-- Movie Card Start -->
+        <div class="card-view">
+            <div class="card-header" style="background: url('{{ pelicula.imagen.url }}'); background-size: cover;">
+                <div class="card-header-icon">
+                    <a href="{{ pelicula.trailer }} " target="_blank" style="margin-top: auto; margin-left: 33%;">
+                        <i class="material-icons header-icon">
+                            <img src="/media/pictures/icons/play.png" height="100" width="100"/>
+                        </i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-movie-content">
+                <div class="card-movie-content-head">
+                    <a href="#">
+                        <h3 class="card-movie-title">{{ pelicula.titulo }}</h3>
+                    </a>
+                    <!--<div class="ratings"><span>7.8</span>/10</div>-->
+                </div>
+                <div class="card-movie-info">
+                    <div class="movie-running-time">
+                        <label>Director</label>
+                        <span>{{ pelicula.directores_id }}</span>
+                    </div>
+                    <div class="movie-running-time">
+                        <label>Duración</label>
+                        <span>{{ pelicula.duracion }} min</span>
+                    </div>
+                    <div class="movie-running-time">
+                        <label>Idiomas</label>
+                        <span>
+                            {% for idioma in pelicula.idioma_id.all %}
+                                {{ idioma }} <br>
+                            {% endfor %}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-movie-content-head" style="margin-left: 30%;">
+                    <a href="#" class="btn btn-warning">Ver Detalle
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Movie Card End -->
+        {% endfor %}
+    </div>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">CIUDAD</th>
+            <th scope="col">LOCAL</th>
+            <th scope="col">DIRECCIÓN</th>
+            <th scope="col">IMAGEN</th>
+            <th scope="col">FUNCIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for local in localpelicula %}    
+                <tr>
+                    <td>{{ local.local_id.ciudad_id }}</td>
+                    <td>{{ local.local_id }}</td>
+                    <td>{{ local.local_id.direccion }}</td>
+                    <td>
+                        <img src="{{ local.local_id.foto.url }}" height="80" width="80"/>
+                    </td>
+                    <td>
+                        {% for funcion in funciones %}
+                            {% if funcion.locales_peliculas_id.pelicula_id == local.pelicula_id and funcion.locales_peliculas_id.local_id == local.local_id %}
+                                <a href="{% url 'cine:crear_boleto' funcion.id %}" class="btn btn-secondary" style="border: 0.5px solid whitesmoke; border-radius: 15px;">
+                                    {{ funcion }} ({{ funcion.idioma_funcion }})
+                                </a><br>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
