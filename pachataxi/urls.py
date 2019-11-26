@@ -30,5 +30,8 @@ urlpatterns = [
     path('', Home.as_view(), name='index'),
     #path('home/', Home.as_view(), name='home'),
     
+    path('registro/', Register.as_view(), name='register'),
+
+
     path('taxi/', include(('apps.taxi.urls', 'taxi')))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

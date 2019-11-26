@@ -41,9 +41,9 @@ class Register(FormView):
         if request.user.is_authenticated:
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return super(Login, self).dispatch(request, *args, **kwargs)
+            return super(Register, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         login(self.request, form.get_user())
-        return super(Login, self).form_valid(form)
+        return super(Register, self).form_valid(form)
     
