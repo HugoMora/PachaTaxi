@@ -2,4 +2,4 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 # Create your views here.
 class Home(TemplateView):
-    template_name = 'cine/index.html'
+    template_name = 'taxi/index.html'

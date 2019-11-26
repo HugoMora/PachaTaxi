@@ -1,6 +1,8 @@
+#LOGIN
 from django.contrib.auth.forms import AuthenticationForm
-from django import forms
 
+#REGISTER
+from django.contrib.auth.forms import UserCreationForm
 
 class FormularioLogin(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -11,6 +13,9 @@ class FormularioLogin(AuthenticationForm):
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
 
 
-class RegisterForm(forms.Form):
-    
-    first_name = forms.CharField(required = True, min_length=4, max_length = 100, widget=forms.TextInput(attrs={'placeholder': 'Nombres'}))
+#REGISTER
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', 'pasword1', 'password2']
