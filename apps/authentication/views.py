@@ -8,6 +8,8 @@ from django.contrib.auth import login
 from .forms import FormularioLogin
 
 #REGISTER
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
 from .forms import RegisterForm
 
 #LOGIN
@@ -31,19 +33,22 @@ class Login(FormView):
 
 #REGISTER
 
-class Register(FormView):
-    template_name = 'authentication/register.html'
-    form_class = RegisterForm
-    success_url = reverse_lazy('index')
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return super(Register, self).dispatch(request, *args, **kwargs)
+def register(request):
+    form = RegisterForm(request.POST or None)
+    print('hola')
+    print('''
 
-    def form_valid(self, form):
-        login(self.request, form.get_user())
-        return super(Register, self).form_valid(form)
-    
+
+
+
+''')
+    print(form)
+    print('''
+
+
+
+
+''')
+    if request.method == 'POST' and form.is_valid():
+        return redirect('index')
+    return render(request, 'authentication/register.html',{'form':form})
