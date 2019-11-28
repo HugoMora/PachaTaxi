@@ -35,20 +35,7 @@ class Login(FormView):
 
 def register(request):
     form = RegisterForm(request.POST or None)
-    print('hola')
-    print('''
-
-
-
-
-''')
     print(form)
-    print('''
-
-
-
-
-''')
     if request.method == 'POST' and form.is_valid():
         return redirect('index')
     return render(request, 'authentication/register.html',{'form':form})

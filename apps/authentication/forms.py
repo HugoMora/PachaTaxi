@@ -21,7 +21,7 @@ class FormularioLogin(AuthenticationForm):
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'username',]
+        fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
         labels = {
                         'first_name':'Nombres (requerido)',
                         'last_name':'Apellidos (requerido)',
@@ -31,10 +31,10 @@ class RegisterForm(UserCreationForm):
                         'password2':'Confirmar Contraseña',
         }
         widgets = {
-                           'first_name':forms.TextInput(attrs={'class':'form-control','autofocus':'True'}),
-                           'last_name':forms.TextInput(attrs={'class':'form-control'}),
-                           'email':forms.TextInput(attrs={'class':'form-control'}),
-                           'username':forms.TextInput(attrs={'class':'form-control'}),
-                           'password1':forms.PasswordInput(attrs={'class':'form-control'}),
-                           'password2':forms.PasswordInput(attrs={'class':'form-control'}),
+                           'first_name':forms.TextInput(attrs={'class':'form_control'}),
+                           'last_name':forms.TextInput(attrs={'class':'form_control'}),
+                           'email':forms.TextInput(attrs={'class':'form_control'}),
+                           'username':forms.TextInput(attrs={'class':'form_control'}),
+                           'password1':forms.PasswordInput(attrs={'class':'form_control'}),
+                           'password2':forms.PasswordInput(attrs={'class':'form_control'}),
         }
